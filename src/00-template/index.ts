@@ -1,4 +1,4 @@
-// https://adventofcode.com/2024/day/<n>
+// https://adventofcode.com/2025/day/<n>
 export default function solution(input: string) {
   const part1 = 0;
   const part2 = 0;

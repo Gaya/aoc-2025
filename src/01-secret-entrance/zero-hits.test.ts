@@ -1,5 +1,6 @@
-import { dialPosition, roundDistance, zeroHits } from './zero-hits';
 import { readFile } from 'fs/promises';
+
+import { dialPosition, roundDistance, zeroHits } from './zero-hits';
 
 describe('dialPosition', () => {
   it('handles positives', () => {
