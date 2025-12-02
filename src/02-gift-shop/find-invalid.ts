@@ -26,6 +26,7 @@ export function findInvalid(a: number, b: number): number[] {
 
 export function findInvalidRepeat(a: number, b: number): number[] {
   const hits = new Set<number>([]);
+  const checked: Record<string, boolean> = {};
 
   for (let i = a; i < b; i++) {
     const iS = i.toString();
@@ -33,10 +34,14 @@ export function findInvalidRepeat(a: number, b: number): number[] {
       if (iS.length % j === 0) {
         const iSSn = iS.substring(0, j);
 
-        const iSn = parseInt(iSSn.repeat(iS.length / j));
+        if (!checked[iSSn]) {
+          const iSn = parseInt(iSSn.repeat(iS.length / j));
 
-        if (iSn >= a && iSn <= b) {
-          hits.add(iSn);
+          checked[iSSn] = true;
+
+          if (iSn >= a && iSn <= b) {
+            hits.add(iSn);
+          }
         }
       }
     }
