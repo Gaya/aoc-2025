@@ -11,13 +11,16 @@ export function roundDistance(a: number, b: number): number {
   const roundOffset = Math.floor(diff / 100);
 
   const diffLeft = diff % 100;
+  const dialPos = dialPosition(a);
 
   if (a > b) {
-    const dialPos = dialPosition(a);
-    return roundOffset + (dialPos !== 0 && dialPos - diffLeft <= 0 ? 1 : 0);
+    if (dialPos === 0) {
+      return roundOffset;
+    }
+
+    return roundOffset + (dialPos - diffLeft <= 0 ? 1 : 0);
   }
 
-  const dialPos = dialPosition(a);
   return roundOffset + (dialPos + diffLeft >= 100 ? 1 : 0);
 }
 
