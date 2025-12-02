@@ -1,5 +1,5 @@
 export function findInvalid(a: number, b: number): number[] {
-  const hits = [];
+  const hits: number[] = [];
 
   const aS = a.toString();
   const min = aS.length % 2 === 0 ? parseInt(aS.substring(0, aS.length / 2).repeat(2))
@@ -24,11 +24,36 @@ export function findInvalid(a: number, b: number): number[] {
   return hits;
 }
 
-export function findInvalidFromInput(input: string): number {
+export function findInvalidRepeat(a: number, b: number): number[] {
+  const hits = new Set<number>([]);
+
+  for (let i = a; i < b; i++) {
+    const iS = i.toString();
+    for (let j = 1; j <= Math.floor(iS.length / 2); j++) {
+      if (iS.length % j === 0) {
+        const iSSn = iS.substring(0, j);
+
+        const iSn = parseInt(iSSn.repeat(iS.length / j));
+
+        if (iSn >= a && iSn <= b) {
+          hits.add(iSn);
+        }
+      }
+    }
+  }
+
+  return [...hits];
+}
+
+export function findInvalidFromInput(input: string, repeated = false): number {
   const rows = input.split(',');
   return rows
     .map((r) => {
       const [a, b] = r.split('-');
+
+      if (repeated) {
+        return findInvalidRepeat(parseInt(a), parseInt(b));
+      }
 
       return findInvalid(parseInt(a), parseInt(b));
     })
