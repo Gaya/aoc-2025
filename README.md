@@ -4,11 +4,11 @@
 ======== Day 1 ========
 Part 1: 1086
 Part 2: 6268
-⏱ Day 1 time: 3.2012ms
+⏱ Day 1 time: 1.5842ms
 ========================
-Execution time: 3.2012ms
-⏱ Total time with cleanup: 4ms
-⏱ Total time with loading and cleanup: 81ms
+Execution time: 1.5842ms
+⏱ Total time with cleanup: 2ms
+⏱ Total time with loading and cleanup: 94ms
 ```
 
 ## Install
