@@ -10,7 +10,7 @@ export function totalJoltage(input: string): number {
 
   return result
     .map((row) => row.reduce((acc, a, currentIndex) => {
-      if (currentIndex > 0 && typeof a !== 'undefined') {
+      if (currentIndex > 0 && !!a) {
         if (acc === 0) {
           return parseInt(a, 10) * 10;
         }
