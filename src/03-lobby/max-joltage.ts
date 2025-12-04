@@ -22,3 +22,37 @@ export function totalJoltage(input: string): number {
     }, 0))
     .reduce((a, b) => a + b);
 }
+
+function maxJoltage(input: string) {
+  const numbers = input.split('');
+  const availableNumbers = [...new Set(numbers)].sort((a, b) => a > b ? -1 : 1);
+
+  let composed = '';
+  let currentIndex = 0;
+
+  for (let i = 0; i < availableNumbers.length; i++) {
+    let number: number;
+    do {
+      number = numbers
+        .findIndex((value, index) => value === availableNumbers[i]
+          && index >= currentIndex
+          && index <= numbers.length - (12 - composed.length));
+
+      if (number > -1) {
+        currentIndex = number + 1;
+        composed += availableNumbers[i];
+        i = -1;
+
+        if (composed.length === 12) {
+          return parseInt(composed, 10);
+        }
+      }
+    } while (number > -1);
+  }
+
+  return 0;
+}
+
+export function totalMaxJoltage(input: string): number {
+  return input.split('\n').reduce((acc, row) => acc + maxJoltage(row), 0);
+}
