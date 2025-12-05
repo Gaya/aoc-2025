@@ -19,7 +19,11 @@ describe('findFresh', () => {
 });
 
 describe('findTotal', () => {
-  const input = `3-5
+  it('finds total of available ids', () => {
+    expect(findTotal(`3-50
+10-14`)).toEqual(48);
+
+    expect(findTotal(`3-5
 10-14
 16-20
 12-18
@@ -29,9 +33,6 @@ describe('findTotal', () => {
 8
 11
 17
-32`;
-
-  it('finds total of available ids', () => {
-    expect(findTotal(input)).toEqual(14);
+32`)).toEqual(14);
   });
 });
