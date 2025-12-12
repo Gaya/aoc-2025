@@ -14,7 +14,7 @@ function nextSplitters(
   });
 }
 
-export function findBeamSplits(input: string) {
+export function findBeamSplits(input: string, paths = false) {
   const start = input.indexOf('S');
   const rows = input.split('\n');
 
@@ -35,27 +35,36 @@ export function findBeamSplits(input: string) {
   const maxY = parseInt(Object.keys(splitters).sort((a, b) => parseInt(a) > parseInt(b) ? -1 : 1)[0]);
 
   const hits: Record<string, boolean> = {};
+  let pathHits = 0;
   let positions: [number, number][] = [[0, start]];
 
   while (true) {
     const next = nextSplitters(splitters, positions, maxY);
     positions = next
       .filter((s) => typeof s !== 'undefined')
-      .filter((s) => !hits[s.join(',')])
+      .filter((s) => paths || !hits[s.join(',')])
       .map(([y, x]): [number, number][] => {
-        hits[[y, x].join(',')] = true;
+        if (!paths) hits[[y, x].join(',')] = true;
         return [[y, x - 1], [y, x + 1]];
       })
       .flat()
       .reduce((acc: [number, number][], [y, x]) => {
-        if (acc.find(([yy, xx]) => yy === y && xx === x)) {
+        if (!paths && acc.find(([yy, xx]) => yy === y && xx === x)) {
           return acc;
         }
 
         return [...acc, [y, x]];
       }, []);
 
+    if (paths) {
+      pathHits = pathHits + next.filter((s) => typeof s === 'undefined').length;
+    }
+
     if (next.every((s) => typeof s === 'undefined')) {
+      if (paths) {
+        return pathHits;
+      }
+
       return Object.keys(hits).length;
     }
   }
